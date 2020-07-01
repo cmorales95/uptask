@@ -1,5 +1,6 @@
 const Proyectos = require('../models/Proyectos');
 const slug = require('slug');
+const Tareas = require('../models/Tareas');
 
 // Controllers
 const proyectosHome = async(req, res) => {
@@ -53,12 +54,24 @@ const proyectoPorUrl = async(req, res, next) => {
         })
     ]);
 
+    const tareas = await Tareas.findAll({
+        where: {
+            proyectoId : proyecto.id
+        },
+        include: [
+            { 
+                model: Proyectos
+            }
+        ]
+    });
+
     if (!proyecto) return next();
 
     res.render('tareas', {
         nombrePagina: 'Tareas del Proyecto',
         proyectos,
-        proyecto
+        proyecto,
+        tareas
     });
 };
 
@@ -76,7 +89,7 @@ const formularioEditar = async(req, res) => {
     res.render('nuevoProyecto', {
         nombrePagina: 'Editar Proyecto',
         proyectos,
-        proyecto
+        proyecto,
     });
 };
 const actualizarProyecto = async(req, res) => {
@@ -108,11 +121,29 @@ const actualizarProyecto = async(req, res) => {
     }
 };
 
+const eliminarProyecto = async(req, res, next) => {
+    //* usar query o params
+    const { urlProyecto } = req.query;
+
+    //! Eliminamos el registro
+    const resultado = await Proyectos.destroy({
+        where: {
+            url: urlProyecto
+        }
+    });
+    //! Sin respuesta
+    if (!resultado) return next();
+    // 
+    //* Enviamos respuesta correcta
+    res.status(200).send('Proyecto Eliminado Correctamente');
+};
+
 module.exports = {
     proyectosHome,
     formularioProyecto,
     nuevoProyecto,
     proyectoPorUrl,
     formularioEditar,
-    actualizarProyecto
+    actualizarProyecto,
+    eliminarProyecto
 }

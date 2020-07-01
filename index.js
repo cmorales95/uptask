@@ -11,6 +11,8 @@ const helpers = require('./helpers');
 const db = require('./config/db');
 // import models
 require('./models/Proyectos');
+require('./models/Tareas');
+
 db.sync()
     .then(console.log('conectado a la bd'))
     .catch(console.log);
@@ -38,6 +40,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/', routes());
 // run server!!
 app.listen(3000, () => {
-    console.log('App Up!');
+    console.log('App is !');
     console.log('Press Ctrl+c to quit');
 });
