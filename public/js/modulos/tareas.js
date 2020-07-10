@@ -1,5 +1,6 @@
 import axios from "axios";
 import Swal from "sweetalert2";
+import {actualizarAvance} from "../funciones/avance";
 
 const tareas = document.querySelector('.listado-pendientes'); // un div
 
@@ -16,8 +17,9 @@ if (tareas) {
             
             axios.patch(url, {
                 idTarea
-            }).then(resp => {
+            }).then(resp => { //* Se completó la actualización
                 icono.classList.toggle('completo');
+                actualizarAvance();
             });
         }
         //! Eliminar
@@ -54,6 +56,7 @@ if (tareas) {
                                     resp.data,
                                     'success'
                                 );
+                                actualizarAvance();
                             }
                         });
                 };
