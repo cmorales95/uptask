@@ -36,9 +36,15 @@ const crearCuenta = async(req, res) => {
   }
 };
 
+const formReestablecerPassword = (req, res) => {
+  res.render('reestablecer',{
+    nombrePagina: 'Reestablecer tu contraseña'
+  });
+};
+
 module.exports = {
   formCrearCuenta,
   formIniciarSesion,
   crearCuenta,
-  
+  formReestablecerPassword
 };

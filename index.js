@@ -55,10 +55,12 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-// Use vardump in all the app
+// Session Variables
 app.use((req, res, next) => {
   res.locals.vardump = helpers.vardump;
   res.locals.mensajes = req.flash();
+  //* Spread operator ... make a copy (not a reference in memory)
+  res.locals.usuario = {...req.user} || null
   next();
 });
 
