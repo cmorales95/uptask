@@ -6,6 +6,14 @@ const formCrearCuenta = (req, res) => {
   });
 };
 
+const formIniciarSesion = (req, res) => {
+  const {error} = res.locals.mensajes;
+  res.render("iniciarSesion", {
+    nombrePagina: "Iniciar Sesión en UpTask",
+    error
+  });
+};
+
 const crearCuenta = async(req, res) => {
   //* leer los datos
   const { email, password } = req.body;
@@ -30,5 +38,7 @@ const crearCuenta = async(req, res) => {
 
 module.exports = {
   formCrearCuenta,
+  formIniciarSesion,
   crearCuenta,
+  
 };
