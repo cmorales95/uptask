@@ -5,6 +5,9 @@ html(lang="es")
         .contenedor-formulario
             h1= nombrePagina
             p Agrega tu email para restablecer tu contraseña
+
+            include partials/mensajes
+
             form.caja-login(action="/reestablecer", method="post")
                 .campo
                     label(for="email") E-mail:

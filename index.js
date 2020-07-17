@@ -18,7 +18,7 @@ require("./models/Proyectos");
 require("./models/Tareas");
 require("./models/Usuarios");
 
-db.sync().then(console.log("conectado a la bd")).catch(console.log);
+db.sync({ alter: true }).then(console.log("conectado a la bd")).catch(console.log);
 
 // creating express app
 const app = express();
